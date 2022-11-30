@@ -18,6 +18,7 @@
         'security/ir.model.access.csv',
         'data/data.xml',
         'views/member_view.xml',
+        'views/kids/view',
         'views/sale.xml'
     ],
     'demo': [],
