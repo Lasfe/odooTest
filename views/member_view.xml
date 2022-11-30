@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_member_tree" model="ir.ui.view">
+        <field name="name">staff.member.tree</field>
+        <field name="model">staff.member</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="responsible_id"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="note"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_member_kanban" model="ir.ui.view">
+        <field name="name">staff.member.kanban</field>
+        <field name="model">staff.member</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="note"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        Name:
+                                        <field name="name"/>
+                                    </li>
+                                    <li>
+                                        Age:
+                                        <field name="age"/>
+                                    </li>
+                                    <li>
+                                        Gender:
+                                        <field name="gender"/>
+                                    </li>
+                                    <li>
+                                        Description:
+                                        <field name="note"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_member_form" model="ir.ui.view">
+        <field name="name">staff.member.form</field>
+        <field name="model">staff.member</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_confirm" name="action_confirm" string="Confirm" class="btn-primary"
+                            states="draft"
+                            confirm="Are you sure confirm this staff member?"
+                            type="object"/>
+                    <button id="button_done" name="action_done" string="Mark as Done" class="btn-primary"
+                            states="confirm"
+                            confirm="Are you sure mark this staff member as done?"
+                            type="object"/>
+                    <button id="button_draft" name="action_draft" string="Set to Draft" class="btn-primary"
+                            states="cancel"
+                            confirm="Are you sure draft this staff member?"
+                            type="object"/>
+                    <button id="button_cancel" name="action_cancel" string="Cancel"
+                            states="draft,done,confirm"
+                            type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,confirm"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="responsible_id"/>
+                            <field name="age"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="member_search" model="ir.ui.view">
+        <field name="name">staff.member.search</field>
+        <field name="model">staff.member</field>
+        <field name="arch" type="xml">
+            <search string="Members">
+                <field name="name"/>
+                <field name="note"/>
+                <separator/>
+                <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+                <filter string="Other" name="other" domain="[('gender', '=', 'other')]"/>
+                <group expand="1" string="Group By">
+                    <field string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                    <field string="Member Name" name="name" context="{'group_by':'name'}"/>
+                    <field string="Status" name="state" context="{'group_by':'state'}"/>
+                    <field string="Description" name="note" context="{'group_by':'note'}"/>
+                    <field string="Age" name="age" context="{'group_by':'age'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="member_action" model="ir.actions.act_window">
+        <field name="name">Staff Members</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">staff.member</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{'search_default_gender': 1, 'search_default_state': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Staff Member!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="staff_root"
+              name="Staff"
+              sequence="10"/>
+
+    <menuitem id="staff_member_root"
+              name="Staff Members"
+              parent="staff_root"
+              action="member_action"
+              sequence="10"/>
+
+<!--    <menuitem id="staff_member"-->
+<!--              name="Staff Members"-->
+<!--              parent="staff_member_root"-->
+<!--              action="member_action"-->
+<!--              sequence="10"/>-->
+
+</odoo>
