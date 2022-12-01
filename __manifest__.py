@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Big Boss is watching you!
+# Big Boss is watching you! OHM v1.1
 {
     'name': 'Outer Heaven Management',
     'version': '1.1',
