@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Big Boss is watching you! OHM v1.1
+# I hate GitHub
 {
     'name': 'Outer Heaven Management',
     'version': '1.1',
