@@ -7,7 +7,8 @@
         <field name="res_model">staff.member</field>
         <field name="view_mode">tree,kanban,form</field>
 <!--        <field name="context">{'search_default_gender': 1, 'search_default_state': 1}</field>-->
-        <field name="domain">[('age', '&lt;=', 18)]</field>
+        <field name="domain">['|', ('age', '=', 18), ('age', '&lt;', 18)]</field>
+<!--        NOTE = Less and Equal not working, duplicate imminent!-->
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Add your first Staff Kid!
