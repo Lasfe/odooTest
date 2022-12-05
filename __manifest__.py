@@ -19,6 +19,7 @@
         'data/data.xml',
         'views/member_view.xml',
         'views/kids_view.xml',
+        'views/member_gender_view.xml',
         'views/sale.xml'
     ],
     'demo': [],

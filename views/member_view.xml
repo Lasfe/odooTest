@@ -92,7 +92,7 @@
                             <field name="age"/>
                         </group>
                         <group>
-                            <field name="gender"/>
+                            <field name="gender" invisible="context.get('hide_gender')"/>
                             <field name="note"/>
                         </group>
                     </group>
@@ -129,7 +129,7 @@
     </record>
 
     <record id="action_staff_member" model="ir.actions.act_window">
-        <field name="name">Staff Members</field>
+        <field name="name">All Staff Members</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">staff.member</field>
         <field name="view_mode">tree,kanban,form</field>
@@ -143,7 +143,7 @@
     </record>
 
     <menuitem id="menu_staff_root"
-              name="Staff"
+              name="Outer Heaven Management"
               sequence="10"/>
 
     <menuitem id="menu_member_root"
@@ -152,7 +152,7 @@
               sequence="10"/>
 
     <menuitem id="menu_member"
-              name="Staff Members"
+              name="All Staff Members"
               parent="menu_member_root"
               action="action_staff_member"
               sequence="10"/>
