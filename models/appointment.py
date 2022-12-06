@@ -2,25 +2,26 @@
 from odoo import api, fields, models
 
 
-class StaffMember(models.Model):
-    _name = "staff.member"
+class StaffAppointment(models.Model):
+    _name = "staff.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = "Staff Member"
+    _description = "Staff Appointment"
 
-    name = fields.Char(string='Name', required=True, tracking=True)
-    reference = fields.Char(string='Order Reference', required=True, copy=False, readonly=True,
+    name = fields.Char(string='Order Reference', required=True, copy=False, readonly=True,
                             default=lambda self: ('New'))
-    age = fields.Integer(string='Age', tracking=True)
+    note = fields.Text(string='Description')
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other'),
-    ], required=True, default='male', tracking=True)
-    note = fields.Text(string='Description', default="New Recruit", tracking=True)
+    ], required=True, related='member_id.gender', tracking=True)
+    age = fields.Integer(string='Age', related='member_id.age', tracking=True)
     state = fields.Selection([('draft', 'Drafted'), ('confirm', 'Confirmed'),
                               ('done', 'Done'), ('cancel', 'Canceled')],
                              default='draft', string="Status", tracking=True)
-    responsible_id = fields.Many2one('res.partner', string="Responsible")
+    member_id = fields.Many2one('staff.member', string="Member", required=True)
+    date_appointment = fields.Date(string="Date")
+    date_checkup = fields.Datetime(string="Check Up Time")
 
     def action_confirm(self):
         self.state = 'confirm'
@@ -45,7 +46,7 @@ class StaffMember(models.Model):
     def create(self, vals):
         if not vals.get('note'):
             vals['note'] = 'New Recruit'
-        if vals.get('reference', ('New')) == ('New'):
-            vals['reference'] = self.env['ir.sequence'].next_by_code('staff.member') or ('New')
-        res = super(StaffMember, self).create(vals)
+        if vals.get('name', ('New')) == ('New'):
+            vals['name'] = self.env['ir.sequence'].next_by_code('staff.appointment') or ('New')
+        res = super(StaffAppointment, self).create(vals)
         return res
