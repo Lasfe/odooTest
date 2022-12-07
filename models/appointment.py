@@ -8,13 +8,13 @@ class StaffAppointment(models.Model):
     _description = "Staff Appointment"
 
     name = fields.Char(string='Order Reference', required=True, copy=False, readonly=True,
-                            default=lambda self: ('New'))
+                       default=lambda self: ('New'))
     note = fields.Text(string='Description')
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other'),
-    ], required=True, related='member_id.gender', tracking=True)
+    ], string="Gender")
     age = fields.Integer(string='Age', related='member_id.age', tracking=True)
     state = fields.Selection([('draft', 'Drafted'), ('confirm', 'Confirmed'),
                               ('done', 'Done'), ('cancel', 'Canceled')],
@@ -50,3 +50,15 @@ class StaffAppointment(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('staff.appointment') or ('New')
         res = super(StaffAppointment, self).create(vals)
         return res
+
+    @api.onchange('member_id')
+    def onchange_member_id(self):
+        if self.member_id:
+            if self.member_id.gender:
+                self.gender = self.member_id.gender
+            if self.member_id.note:
+                self.note = self.member_id.note
+
+        else:
+            self.gender = ''
+            self.note = ''
