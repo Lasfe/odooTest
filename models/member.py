@@ -67,5 +67,8 @@ class StaffMember(models.Model):
     @api.model
     def default_get(self, fields):
         res = super(StaffMember, self).default_get(fields)
-        res ['age'] = 20
+        res['age'] = 20
+        # res['name'] = 'John'
+        # res['gender'] = 'male'
+        # res['note'] = 'New Recruit'
         return res
