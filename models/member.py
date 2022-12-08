@@ -51,6 +51,9 @@ class StaffMember(models.Model):
     #     print("vals ----->", vals)
     #     return res
 
+    # To avoid Singleton error in odoo try to put this line in the corresponding function which contains multiple data
+    # for rec in self:
+
     @api.model
     def create(self, vals):
         if not vals.get('note'):
@@ -59,5 +62,10 @@ class StaffMember(models.Model):
             vals['reference'] = self.env['ir.sequence'].next_by_code('staff.member') or ('New')
         res = super(StaffMember, self).create(vals)
         return res
-    # To avoid Singleton error in odoo try to put this line in the corresponding function which contains multiple data
-    # for rec in self:
+
+    # This function work as same for getting default values to fields
+    @api.model
+    def default_get(self, fields):
+        res = super(StaffMember, self).default_get(fields)
+        res ['age'] = 20
+        return res
