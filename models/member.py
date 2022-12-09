@@ -71,4 +71,5 @@ class StaffMember(models.Model):
         # res['name'] = 'John'
         # res['gender'] = 'male'
         # res['note'] = 'New Recruit'
+        # res['state'] = 'draft'
         return res
