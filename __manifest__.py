@@ -18,6 +18,7 @@
         'security/ir.model.access.csv',
         'data/data.xml',
         'wizard/create_appointment_view.xml',
+        'wizard/search_appointment_view.xml',
         'views/member_view.xml',
         'views/kids_view.xml',
         'views/member_gender_view.xml',
