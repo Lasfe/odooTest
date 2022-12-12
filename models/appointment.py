@@ -1,4 +1,4 @@
-# Hospital=Staff, Patient=Member
+# Hospital=Staff, Patient=Member, Doctor=Trainer
 from odoo import api, fields, models
 
 

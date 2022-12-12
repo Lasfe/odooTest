@@ -1,4 +1,4 @@
-# Hospital=Staff, Patient=Member
+# Hospital=Staff, Patient=Member, Doctor=Trainer
 from odoo import api, fields, models
 
 
@@ -22,6 +22,7 @@ class StaffMember(models.Model):
                              default='draft', string="Status", tracking=True)
     responsible_id = fields.Many2one('res.partner', string="Responsible")
     appointment_count = fields.Integer(string='Appointment Count', compute='_compute_appointment_count')
+    image = fields.Binary(string="Member Image")
 
     def action_confirm(self):
         for rec in self:

@@ -10,7 +10,7 @@
                     <button name="action_done" string="Mark as Done" class="btn-primary" type="object"/>
                     <button name="action_confirm" string="Confirm" class="btn-primary" type="object"/>
                     <button name="action_draft" string="Set to Draft" class="btn-primary" type="object"/>
-                    <button name="action_cancel" string="Cancel" class="btn-primary" type="object"/>
+                    <button name="action_cancel" string="Cancel" type="object"/>
                 </header>
                 <field name="name"/>
                 <field name="member_id"/>

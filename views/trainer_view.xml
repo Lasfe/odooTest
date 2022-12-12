@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_trainer_tree" model="ir.ui.view">
+        <field name="name">staff.trainer.tree</field>
+        <field name="model">staff.trainer</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="trainer_name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_trainer_kanban" model="ir.ui.view">
+        <field name="name">staff.trainer.kanban</field>
+        <field name="model">staff.trainer</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="trainer_name"/>
+                <field name="gender"/>
+                <field name="age"/>
+                <field name="note"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        Trainer Name:<field name="trainer_name"/>
+                                    </li>
+                                    <li>
+                                        Age:<field name="age"/>
+                                    </li>
+                                    <li>
+                                        Gender:<field name="gender"/>
+                                    </li>
+                                    <li>
+                                        Description:<field name="note"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_trainer_form" model="ir.ui.view">
+        <field name="name">staff.trainer.form</field>
+        <field name="model">staff.trainer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="trainer_name"/>
+                            <field name="age"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_trainer_search" model="ir.ui.view">
+        <field name="name">staff.trainer.search</field>
+        <field name="model">staff.trainer</field>
+        <field name="arch" type="xml">
+            <search string="Trainers">
+                <field name="trainer_name"/>
+                <field name="note"/>
+                <separator/>
+                <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+                <filter string="Other" name="other" domain="[('gender', '=', 'other')]"/>
+                <group expand="1" string="Group By">
+                    <field string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                    <field string="Description" name="note" context="{'group_by':'note'}"/>
+                    <field string="Age" name="age" context="{'group_by':'age'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_staff_trainer" model="ir.actions.act_window">
+        <field name="name">All Staff Trainers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">staff.trainer</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first Staff Trainer!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_trainer_root"
+              name="Staff Trainers"
+              parent="menu_staff_root"
+              sequence="10"/>
+
+    <menuitem id="menu_trainer"
+              name="Trainers"
+              parent="menu_trainer_root"
+              action="action_staff_trainer"
+              sequence="10"/>
+
+</odoo>
