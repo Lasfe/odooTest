@@ -6,6 +6,7 @@ class StaffMember(models.Model):
     _name = "staff.member"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Staff Member"
+    _order = "id desc"  # (desc for Descreasing order, asc for Ascending order)
 
     name = fields.Char(string='Name', required=True, tracking=True)
     reference = fields.Char(string='Order Reference', required=True, copy=False, readonly=True,

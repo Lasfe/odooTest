@@ -21,7 +21,8 @@
         <field name="name">staff.member.kanban</field>
         <field name="model">staff.member</field>
         <field name="arch" type="xml">
-            <kanban>
+<!--            Default order is ascending for kanban view-->
+            <kanban default_order="id asc">
                 <field name="id"/>
                 <field name="name"/>
                 <field name="gender"/>

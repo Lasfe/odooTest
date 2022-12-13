@@ -6,6 +6,7 @@ class StaffAppointment(models.Model):
     _name = "staff.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Staff Appointment"
+    _order = "trainer_id,name,note desc"  # (desc for Descreasing order, asc for Ascending order)
 
     name = fields.Char(string='Order Reference', required=True, copy=False, readonly=True,
                        default=lambda self: ('New'))
@@ -20,8 +21,10 @@ class StaffAppointment(models.Model):
                               ('done', 'Done'), ('cancel', 'Canceled')],
                              default='draft', string="Status", tracking=True)
     member_id = fields.Many2one('staff.member', string="Member", required=True)
+    trainer_id = fields.Many2one('staff.trainer', string="Trainer", required=True)
     date_appointment = fields.Date(string="Date")
     date_checkup = fields.Datetime(string="Check Up Time")
+    prescription = fields.Text(string='Prescription')
 
     def action_confirm(self):
         self.state = 'confirm'
