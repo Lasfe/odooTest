@@ -6,13 +6,15 @@
         <field name="model">staff.appointment</field>
         <field name="arch" type="xml">
 <!--            For mass editing-->
-            <tree multi_edit="1">
+            <tree multi_edit="1" sample="1">
                 <header>
+<!--                    btn-primary is purple like button type btn-secondary is normal white like button-->
                     <button name="action_done" string="Mark as Done" class="btn-primary" type="object"/>
                     <button name="action_confirm" string="Confirm" class="btn-primary" type="object"/>
                     <button name="action_draft" string="Set to Draft" class="btn-primary" type="object"/>
                     <button name="action_cancel" string="Cancel" type="object"/>
                 </header>
+<!--                For dynamic tree view we need to add 'optional' attribute-->
                 <field name="name"/>
                 <field name="member_id"/>
                 <field name="age" optional="show"/>
@@ -60,6 +62,7 @@
                             <field name="member_id"/>
                             <field name="age"/>
                             <field name="gender" readonly="1" force_save="1"/>
+<!--                            attributes = 'readonly', 'force_save'-->
                         </group>
                         <group>
                             <field name="trainer_id"/>
@@ -69,15 +72,32 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Trainer Prescription" name="trainer_prescription">
+                        <page string="Trainer Instruction" name="trainer_instruction">
                             <group>
-                                <field name="prescription"/>
+                                <field name="instruction"/>
                             </group>
                         </page>
                         <page string="Equipment" name="equipment">
-                            <group>
-<!--                                <field name="equipment"/>-->
-                            </group>
+                                <field name="instruction_line_ids">
+<!--                                    Tree view for notebook section for equipment-->
+<!--                                    'editable' attribute is used for editing datas directly at view not in the pop-up-->
+<!--                                    "bottom" ==> new lines at bottom, "top" ==> new lines at top-->
+                                    <tree multi_edit="1" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="qty" optional="show"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                            </group>
+                                            <group>
+                                                <field name="qty"/>
+                                            </group>
+<!--                                            <field name="appointment_id"/>-->
+                                        </group>
+                                    </form>
+                                </field>
                         </page>
                         <page string="Other Info" name="other_info">
                             <group>

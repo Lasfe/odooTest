@@ -24,6 +24,7 @@ class StaffMember(models.Model):
     responsible_id = fields.Many2one('res.partner', string="Responsible")
     appointment_count = fields.Integer(string='Appointment Count', compute='_compute_appointment_count')
     image = fields.Binary(string="Member Image")
+    appointment_ids = fields.One2many('staff.appointment', 'member_id', string="Appointments")
 
     def action_confirm(self):
         for rec in self:

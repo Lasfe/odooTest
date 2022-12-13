@@ -5,10 +5,12 @@
         <field name="name">staff.trainer.tree</field>
         <field name="model">staff.trainer</field>
         <field name="arch" type="xml">
-            <tree sample="1">
+            <tree sample="1" multi_edit="1">
                 <field name="trainer_name"/>
-                <field name="age"/>
-                <field name="gender"/>
+<!--                image field shows trainer's image file size :)-->
+<!--                <field name="image"/>-->
+                <field name="age" optional="show"/>
+                <field name="gender" optional="show"/>
                 <field name="note"/>
             </tree>
         </field>

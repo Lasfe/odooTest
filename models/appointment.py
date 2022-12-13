@@ -22,9 +22,13 @@ class StaffAppointment(models.Model):
                              default='draft', string="Status", tracking=True)
     member_id = fields.Many2one('staff.member', string="Member", required=True)
     trainer_id = fields.Many2one('staff.trainer', string="Trainer", required=True)
+    instruction_line_ids = fields.One2many('appointment.instruction.lines', 'appointment_id', string="Instruction Lines")
+    # Many2one fields must end with _id syntax !
+    # One2many fields must end with _ids syntax !
     date_appointment = fields.Date(string="Date")
     date_checkup = fields.Datetime(string="Check Up Time")
-    prescription = fields.Text(string='Prescription')
+    instruction = fields.Text(string='Instruction')
+
 
     def action_confirm(self):
         self.state = 'confirm'
@@ -65,3 +69,14 @@ class StaffAppointment(models.Model):
         else:
             self.gender = ''
             self.note = ''
+
+
+class AppointmentInstructionLines(models.Model):
+    _name = "appointment.instruction.lines"
+    _description = "Appointment Instruction Lines"
+
+    name = fields.Char(string="Equipment", required=True)
+    qty = fields.Integer(string="Quantity", required=True)
+    appointment_id = fields.Many2one('staff.appointment', string="Appointment")
+# New model for instruction lines. Is this an alternative method for define a new model?
+# But remember that you need to add access for this new model in the security directory
